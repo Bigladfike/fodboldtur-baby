@@ -65,7 +65,9 @@ def menu():
 try:
     with open(filename, 'rb') as infile:
         fodboldtur = pickle.load(infile)
+        for navn in fodboldtur:
+            if isinstance(fodboldtur[navn], (int, float)):
+                fodboldtur[navn] = [fodboldtur[navn]]
 except FileNotFoundError:
     fodboldtur = {}
-
 menu()
