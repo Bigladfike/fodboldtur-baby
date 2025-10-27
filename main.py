@@ -3,10 +3,12 @@ import pickle
 filename = 'betalinger.pk'
 fodboldtur = {}
 
+
 def afslut():
     with open(filename, 'wb') as outfile:
         pickle.dump(fodboldtur, outfile)
     print("Programmet er afsluttet!")
+
 
 def printliste():
     print("\n=== OVERSIGT OVER INDBETALINGER ===")
@@ -20,25 +22,27 @@ def printliste():
     print("====================================\n")
     menu()
 
+
 def find_lignende_navn(soegt_navn):
     for navn in fodboldtur.keys():
         if navn.lower() == soegt_navn.lower():
             return navn
     return None
 
+
 def opret_bruger():
-    navn = input("Indtast navn på nyt medlem (for- og efternavn):")
-    navn_dele = navn.split()
-    if len(navn_dele) < 2:
-        print("Fejl: Indtast både for- og efternavn.")
+    navn = input("Indtast navn på nyt medlem (For- og efternavn): ")
+    navne_dele = navn.split()
+    if len(navne_dele) < 2:
+        print("Fejl: Indtast både for- og efternavn!")
         menu()
         return
-    navn = ''.join(word.capitalize() for word in navn_dele)
+    navn = ' '.join(word.capitalize() for word in navne_dele)
     if navn in fodboldtur:
         print(f"Fejl: {navn} eksisterer allerede!")
     else:
         fodboldtur[navn] = []
-        print(f"{navn} er blevet oprettet")
+        print(f"{navn} er blevet oprettet.")
     menu()
 
 
@@ -72,9 +76,11 @@ def registrer_betaling():
             break
         except ValueError:
             print("Fejl: Indtast venligst et heltal!")
+
     fodboldtur[navn].append(beloeb)
     print(f"{beloeb} kr. registreret for {navn}.")
     menu()
+
 
 def top3_manglende():
     print("\n=== TOP 3 DER MANGLER AT BETALE MEST ===")
@@ -90,9 +96,8 @@ def top3_manglende():
     menu()
 
 
-
 def menu():
-    print("MENU")
+    print("\nMENU")
     print("1: Print liste")
     print("2: Afslut program")
     print("3: Registrer betaling")
@@ -110,8 +115,9 @@ def menu():
     elif valg == '5':
         opret_bruger()
     else:
-        print("uglydigt valg nig- i mean !!")
+        print("Ugyldigt valg!")
         menu()
+
 
 try:
     with open(filename, 'rb') as infile:
