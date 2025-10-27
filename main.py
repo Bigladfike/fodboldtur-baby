@@ -20,13 +20,58 @@ def printliste():
     print("====================================\n")
     menu()
 
+def find_lignende_navn(soegt_navn):
+    for navn in fodboldtur.keys():
+        if navn.lower() == soegt_navn.lower():
+            return navn
+    return None
+
+def opret_bruger():
+    navn = input("Indtast navn på nyt medlem (for- og efternavn):")
+    navn_dele = navn.split()
+    if len(navn_dele) < 2:
+        print("Fejl: Indtast både for- og efternavn.")
+        menu()
+        return
+    navn = ''.join(word.capitalize() for word in navn_dele)
+    if navn in fodboldtur:
+        print(f"Fejl: {navn} eksisterer allerede!")
+    else:
+        fodboldtur[navn] = []
+        print(f"{navn} er blevet oprettet")
+    menu()
 
 
 def registrer_betaling():
     navn = input("Indtast navn på medlem: ")
-    beloeb = float(input("Indtast indbetalt beløb: "))
+    navne_dele = navn.split()
+    navn = ' '.join(word.capitalize() for word in navne_dele)
+
     if navn not in fodboldtur:
-        fodboldtur[navn] = []
+        lignende = find_lignende_navn(navn)
+        if lignende:
+            print(f"Fejl: Navnet findes ikke. Mente du '{lignende}'?")
+        else:
+            print("Fejl: Medlemmet findes ikke. Opret medlem først.")
+        menu()
+        return
+
+    while True:
+        try:
+            beloeb = int(input("Indtast indbetalt beløb (heltal): "))
+            if beloeb <= 0:
+                print("Fejl: Beløbet skal være positivt!")
+                continue
+            if beloeb > 4500:
+                print("Fejl: Beløbet kan ikke overstige 4500 kr!")
+                continue
+            current_total = sum(fodboldtur[navn])
+            if current_total + beloeb > 4500:
+                print(f"Fejl: Total vil overstige 4500 kr. Maksimal indbetaling nu: {4500 - current_total} kr.")
+                continue
+            break
+        except ValueError:
+            print("Fejl: Indtast venligst et heltal!")
     fodboldtur[navn].append(beloeb)
     print(f"{beloeb} kr. registreret for {navn}.")
     menu()
@@ -52,6 +97,7 @@ def menu():
     print("2: Afslut program")
     print("3: Registrer betaling")
     print("4: Top 3 der mangler mest")
+    print("5: Opret ny bruger")
     valg = input("Indtast dit valg: ")
     if valg == '1':
         printliste()
@@ -61,6 +107,11 @@ def menu():
         registrer_betaling()
     elif valg == '4':
         top3_manglende()
+    elif valg == '5':
+        opret_bruger()
+    else:
+        print("uglydigt valg nig- i mean !!")
+        menu()
 
 try:
     with open(filename, 'rb') as infile:
