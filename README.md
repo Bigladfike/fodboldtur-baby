@@ -14,3 +14,7 @@ Live jacob reaktion til denne dejlige sketch (han ser så entusiastisk ud :) )
 
 og her er min flowchart ting af userinputs
 ![userinputs](flowchartuserinputs.png)
+
+
+## KILDER
+https://www.geeksforgeeks.org/python/python-gui-tkinter/
