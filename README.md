@@ -15,6 +15,8 @@ Live jacob reaktion til denne dejlige sketch (han ser så entusiastisk ud :) )
 og her er min flowchart ting af userinputs
 ![userinputs](flowchartuserinputs.png)
 
+### lille note fra tawfik
+sååå jeg har måske ikke lige kigget på hvordan jeg kunne "guide" brugere, og jeg magter ikke at lave om på mit flowchart (den er allerede propfyldt med ting), sååå det bliver et problem til næste gang :)
 
 ## KILDER
 https://www.geeksforgeeks.org/python/python-gui-tkinter/
